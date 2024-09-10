@@ -1,37 +1,35 @@
-name: python CI
+name: Python CI
 
-#trigger the workflow on any push to the amin branch or pull request
+# Trigger the workflow on any push to the main branch or pull request
 on:
- push:
- branches:
-   -  main
- pull_request:
- branches:
- -   main
-
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
- test :
- runs-om: uduntu-latest
-  
+  test:
+    runs-on: ubuntu-latest
 
- steps:
-    # step 1:check out the cod from the repositroy 
-    name: check out code
-    uses: actions/checkout@v2
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Check out code
+        uses: actions/checkout@v2
 
-   #step 2: set up pyhton enviroment 
-    name : set up python
-    uses: actions/setup-python@v2
-    with:
-      python-version: "3.8"
-   #step 3:install dependencies 
-    name: install dependencies 
-    run:
-     python -m pip install-- upgrade pip 
-     pip install -r requirement.txt
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
 
-   #step 4:run tests
-    name: run tests 
-    run: pytest
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
+      # Step 4: Run tests
+      - name: Run tests
+        run: pytest
